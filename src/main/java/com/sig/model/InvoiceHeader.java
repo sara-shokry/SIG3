@@ -40,11 +40,14 @@ public class InvoiceHeader {
         this.invoiceDate = invoiceDate;
         this.customerName = customerName;
     }
-    
+    public InvoiceHeader( Date invoiceDate, String customerName) {
+        this.invoiceDate = invoiceDate;
+        this.customerName = customerName;
+    }
     public boolean  parseInvoiceHeader(String[] attr) {
         if( attr != null && attr.length == 3){ // check the format of file
             try {
-              this.invoiceNumber = Integer.parseInt(attr[0]);
+              this.invoiceNumber  = Integer.parseInt(attr[0]);
               
             } catch (NumberFormatException nfe) {
                 System.out.println("Error in paring Invoice header number  ");

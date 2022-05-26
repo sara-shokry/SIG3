@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.shape.Path;
+ 
 
 /**
  *
@@ -33,7 +33,7 @@ public class FileOperations {
         
         System.out.println("File Path : "+ pathStr);
          ArrayList<InvoiceHeader> invoicesList = new ArrayList<>();
-        if ( !pathStr.endsWith(".cvs") ) {
+        if ( !pathStr.endsWith(".csv") ) {
             return null;
         } else {
            
@@ -118,7 +118,7 @@ public class FileOperations {
         
         System.out.println("File Path : "+ pathStr);
         ArrayList<InvoiceLine> linesList = new ArrayList<>();
-         if (!pathStr.endsWith(".cvs")){
+         if (!pathStr.endsWith(".csv")){
             return null;
         } else {
         List<String> lines = Collections.emptyList();
