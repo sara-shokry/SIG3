@@ -15,6 +15,7 @@ import com.sig.view.InvoicesFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -171,24 +172,41 @@ public class Controller implements ActionListener, ListSelectionListener {
     }
 
     public void saveFile() {
-try {
-    showMessageDialog(this.frame, "Please select the first file for invoice header ");
-            JFileChooser fileChooser = new JFileChooser();
-            int result = fileChooser.showSaveDialog(frame);
+       
+        String headers = "";
+        String lines = "";
+        for (InvoiceHeader invoice : invoiceHeaderList) {
+            String invCSV = invoice.toString();
+            headers += invCSV;
+            headers += "\n";
+
+            for (InvoiceLine line : invoice.getInvoiceLines()) {
+                String lineCSV = line.toString();
+                lines += lineCSV;
+                lines += "\n";
+            }
+        }
+        System.out.println("Check point");
+        try {
+            JFileChooser fc = new JFileChooser();
+            int result = fc.showSaveDialog(frame);
             if (result == JFileChooser.APPROVE_OPTION) {
-                String invoiceFilePath = "";
-                String lineFilePath ="";
-               invoiceFilePath = fileChooser.getSelectedFile().getPath();
-                  showMessageDialog(this.frame, "Please select the second file for lines ");
-                result = fileChooser.showSaveDialog(frame);
+                File headerFile = fc.getSelectedFile();
+                FileWriter hfw = new FileWriter(headerFile);
+                hfw.write(headers);
+                hfw.flush();
+                hfw.close();
+                result = fc.showSaveDialog(frame);
                 if (result == JFileChooser.APPROVE_OPTION) {
-                     lineFilePath = fileChooser.getSelectedFile().getPath();
-                     this.fileOpreations.witeFile(invoiceHeaderList,invoiceFilePath, lineFilePath);
+                    File lineFile = fc.getSelectedFile();
+                    FileWriter lfw = new FileWriter(lineFile);
+                    lfw.write(lines);
+                    lfw.flush();
+                    lfw.close();
                 }
             }
         } catch (Exception ex) {
-showMessageDialog(this.frame, "There's an error in savign the files ");
-    
+
         }
     }
 

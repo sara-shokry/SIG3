@@ -75,6 +75,47 @@ public class FileOperations {
 
     public void witeFile(ArrayList<InvoiceHeader> invoicesList,String invoicesPathStr, String linesPathStr ){
       
+         
+        String headers = "";
+        String lines = "";
+        for (InvoiceHeader invoice : invoicesList) {
+            String invCSV = invoice.toString();
+            headers += invCSV;
+            headers += "\n";
+
+            for (InvoiceLine line : invoice.getInvoiceLines()) {
+                String lineCSV = line.toString();
+                lines += lineCSV;
+                lines += "\n";
+            }
+        }
+        
+        try {
+             
+                File headerFile = Paths.get(invoicesPathStr).toFile();
+                FileWriter hfw = new FileWriter(headerFile);
+                hfw.write(headers);
+                hfw.flush();
+                hfw.close();
+                
+                    File lineFile = Paths.get(linesPathStr).toFile();
+                    FileWriter lfw = new FileWriter(lineFile);
+                    lfw.write(lines);
+                    lfw.flush();
+                    lfw.close();
+              
+            
+ 
+        } catch (IOException ex) {
+            Logger.getLogger(FileOperations.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (Exception ex) {
+
+        }
+    }
+        
+ /*
+    public void witeFile(ArrayList<InvoiceHeader> invoicesList,String invoicesPathStr, String linesPathStr ){
+      
         String invoices = "";
         String lines = "";
         for (InvoiceHeader invoice : invoicesList) {
@@ -108,7 +149,14 @@ public class FileOperations {
 
         }
     }
-  
+        
+  */
+    
+
+
+
+
+
     public void writeHeaderFile(ArrayList<InvoiceHeader> list) {
 
     }
